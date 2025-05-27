@@ -33,3 +33,4 @@ jobs:
           COMMIT_MESSAGE=$(git log -1 --format=%s | cat)
           git tag -a $NEW_TAG -m "$COMMIT_MESSAGE"
           git push --tags
+          echo "tag=$NEW_TAG" >> $GITHUB_OUTPUT

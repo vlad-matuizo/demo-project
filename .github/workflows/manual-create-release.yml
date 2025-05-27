@@ -41,4 +41,7 @@ jobs:
     needs: [release]
     uses: ./.github/workflows/common-deployment.yml
     secrets: inherit
+    with:
+      environment: 'Staging'
+      tag: ${{ needs.release.outputs.tag }}
 

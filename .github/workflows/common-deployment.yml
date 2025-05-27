@@ -1,7 +1,17 @@
 name: common-deployment.yml
 on:
   workflow_call:
-
+    inputs:
+      environment:
+        description: 'The environment to deploy to'
+        type: string
+        required: true
+        default: 'Development'
+      tag:
+        description: 'The version to deploy to'
+        type: string
+        required: true
+        default: 'x.x.x'
 
 jobs:
   deploy:
@@ -18,7 +28,8 @@ jobs:
         with:
           token: '${{ github.token }}'
           environment-url: https://google.com
-          environment: QA
+          environment: ${{ inputs.environment || 'Development' }}
+          description: '${{ inputs.tag }} to ${{ inputs.environment || 'Development' }}'
 
       - name: Deploy my app
         run: |

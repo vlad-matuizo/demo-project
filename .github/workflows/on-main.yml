@@ -12,18 +12,20 @@ jobs:
     uses: ./.github/workflows/common-build.yml
     secrets: inherit
 
-  deploy:
-    name: Deploy my app
-    needs: build
-    uses: ./.github/workflows/common-deployment.yml
-    secrets: inherit
-
   tag:
     # only tag when not pushing a tag
     if: contains(github.ref, 'main')
-    needs: deploy
+    needs: build
     uses: ./.github/workflows/common-tag.yml
     secrets: inherit
     with:
       version: prerel
 
+  deploy:
+    name: Deploy my app
+    needs: tag
+    uses: ./.github/workflows/common-deployment.yml
+    secrets: inherit
+    with:
+      environment: Production
+      tag: ${{ needs.tag.outputs.tag }}
