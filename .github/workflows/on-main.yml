@@ -15,7 +15,7 @@ jobs:
   deploy:
     name: Deploy my app
     needs: build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions:
       deployments: write
     steps:
