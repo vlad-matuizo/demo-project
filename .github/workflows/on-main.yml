@@ -32,7 +32,7 @@ jobs:
       tag: ${{ needs.tag.outputs.tag }}
 
   deploy-by-tag:
-    if: !contains(github.ref, 'main')
+    if: ${{!contains(github.ref, 'main')}}
     name: Deploy my app
     uses: ./.github/workflows/common-deployment.yml
     secrets: inherit
