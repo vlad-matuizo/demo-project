@@ -1,0 +1,35 @@
+name: Tag
+
+# valid options are (major, minor, patch, prerel) 
+# bumps the semantic version of the latest existing tag - [major].[minor].[patch]-[prerel]
+# ex:
+# prerel 1.0.0-1  ->  1.0.0-2
+# patch  1.0.0-2  ->  1.0.1
+# minor  1.0.1    ->  1.1.0
+# major  1.1.0    ->  2.0.0
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # gets all tags, all history
+      - id: version
+        run: |
+          git config --global user.email "dc-asn@homedepot.com"
+          git config --global user.name "dc-asn"             
+          CURRENT_TAG=$(git tag | sort -V | tail -n 1)
+          NEW_TAG=$(ci/semver bump ${{ inputs.version }} $CURRENT_TAG)
+          COMMIT_MESSAGE=$(git log -1 --format=%s | cat)
+          git tag -a $NEW_TAG -m "$COMMIT_MESSAGE"
+          git push --tags

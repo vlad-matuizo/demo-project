@@ -1,0 +1,14 @@
+name: Branch - Build & Deploy
+
+on:
+  push:
+    branches-ignore:
+      - main
+    tags-ignore:
+      - '**'
+
+jobs:
+  build:
+    uses: ./.github/workflows/common-build.yml
+    secrets: inherit
+
