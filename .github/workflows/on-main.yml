@@ -21,11 +21,21 @@ jobs:
     with:
       version: prerel
 
-  deploy:
+  deploy-branch:
+    if: contains(github.ref, 'main')
     name: Deploy my app
     needs: tag
     uses: ./.github/workflows/common-deployment.yml
     secrets: inherit
     with:
-      environment: Production
+      environment: Development
       tag: ${{ needs.tag.outputs.tag }}
+
+  deploy-by-tag:
+    if: !contains(github.ref, 'main')
+    name: Deploy my app
+    uses: ./.github/workflows/common-deployment.yml
+    secrets: inherit
+    with:
+      environment: Development
+      tag: ${{ github.ref }}
