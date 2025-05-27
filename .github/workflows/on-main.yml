@@ -14,8 +14,10 @@ jobs:
 
   deploy:
     name: Deploy my app
-
+    needs: build
     runs-on: self-hosted
+    permissions:
+      deployments: write
     steps:
       - uses: actions/checkout@v4
 
