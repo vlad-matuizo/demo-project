@@ -30,9 +30,9 @@ jobs:
 #            docker/**
 #          retention-days: 7
 
-      - name: Upload test coverage
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-coverage-${{ github.sha }}
-          path: ./build/reports/jacoco/testCodeCoverageReport
-          retention-days: 7
+#      - name: Upload test coverage
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: test-coverage-${{ github.sha }}
+#          path: ./build/reports/jacoco/testCodeCoverageReport
+#          retention-days: 7
