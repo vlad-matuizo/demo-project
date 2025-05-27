@@ -26,8 +26,8 @@ jobs:
           fetch-depth: 0 # gets all tags, all history
       - id: version
         run: |
-          git config --global user.email "dc-asn@homedepot.com"
-          git config --global user.name "dc-asn"             
+          git config --global user.email "dalvmatujzo@gmail.com"
+          git config --global user.name "vladmatuizo"             
           CURRENT_TAG=$(git tag | sort -V | tail -n 1)
           NEW_TAG=$(ci/semver bump ${{ inputs.version }} $CURRENT_TAG)
           COMMIT_MESSAGE=$(git log -1 --format=%s | cat)
